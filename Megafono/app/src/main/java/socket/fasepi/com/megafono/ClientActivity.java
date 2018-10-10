@@ -1,6 +1,7 @@
 package socket.fasepi.com.megafono;
 
 import android.content.Intent;
+import android.media.MediaPlayer;
 import android.media.MediaRecorder;
 import android.os.Environment;
 import android.support.v7.app.AppCompatActivity;
@@ -126,6 +127,19 @@ public class ClientActivity extends AppCompatActivity {
         //sendData("Jaime Lombana\n");
 
     }
+
+    public void Reproducir(View v){
+        MediaPlayer mediaPlayer = new MediaPlayer();
+
+        try {
+            mediaPlayer.setDataSource(outputFile);
+            mediaPlayer.prepare();
+            mediaPlayer.start();
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+    }
+
 
     public void sendData(final String data) {
         mensajeEncriptado = data;
