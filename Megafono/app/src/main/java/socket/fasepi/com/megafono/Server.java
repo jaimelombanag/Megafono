@@ -66,10 +66,14 @@ public class Server {
                 while (true) {
                     Socket socket = serverSocket.accept();
                     count++;
-                    message += "#" + count + " from "
-                            + socket.getInetAddress() + ":"
-                            + socket.getPort() + "\n";
 
+
+                   // message += "#" + count + " from "
+                   //         + socket.getInetAddress() + ":"
+                   //         + socket.getPort() + "\n";
+
+
+                    message += "#" + count + " Se recibe Sonido desde " + socket.getInetAddress()  + "\n";
 
 
                     //InputStreamReader dataInputStream = new InputStreamReader(socket.getInputStream());
@@ -144,7 +148,10 @@ public class Server {
                 printStream.print(msgReply);
                 printStream.close();
 
-                message += "replayed: " + msgReply + "\n";
+                //message += "replayed: " + msgReply + "\n";
+
+                message += "Reproduciendo Sonido... "  + "\n";
+
 
                 activity.runOnUiThread(new Runnable() {
 

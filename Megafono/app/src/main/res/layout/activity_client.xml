@@ -29,15 +29,36 @@
         app:layout_constraintTop_toTopOf="parent"
         android:layout_marginTop="8dp" />
 
-    <Button
-        android:id="@+id/button3"
-        android:layout_width="wrap_content"
+    <LinearLayout
+        android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:text="Button"
-        tools:layout_editor_absoluteX="147dp"
-        tools:layout_editor_absoluteY="445dp"
-        tools:ignore="MissingConstraints,OnClick"
-        android:onClick="Reproducir"/>
+        android:orientation="vertical"
+        android:gravity="center">
+
+
+        <Button
+            android:id="@+id/button3"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Reproduccir"
+            tools:layout_editor_absoluteX="147dp"
+            tools:layout_editor_absoluteY="445dp"
+            tools:ignore="MissingConstraints,OnClick"
+            android:onClick="Reproducir"/>
+
+        <TextView
+            android:id="@+id/ip_conexion"
+            android:layout_width="252dp"
+            android:layout_height="22dp"
+            android:text="Esta conectado a: 192.168."
+            android:textStyle="bold"
+            tools:layout_editor_absoluteX="68dp"
+            tools:layout_editor_absoluteY="422dp"
+            tools:ignore="MissingConstraints" />
+
+    </LinearLayout>
+
+
 
 
 </android.support.constraint.ConstraintLayout>

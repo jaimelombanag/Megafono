@@ -11,6 +11,7 @@ import android.util.Log;
 import android.view.MotionEvent;
 import android.view.View;
 import android.widget.Button;
+import android.widget.TextView;
 import android.widget.Toast;
 
 import java.io.BufferedInputStream;
@@ -43,6 +44,7 @@ public class ClientActivity extends AppCompatActivity {
 
     private MediaRecorder myAudioRecorder;
     private String outputFile;
+    private TextView ip_conexion;
 
 
     @Override
@@ -56,6 +58,9 @@ public class ClientActivity extends AppCompatActivity {
 
 
         audio = (CircleButton) findViewById(R.id.audioBtn);
+        ip_conexion = (TextView)  findViewById(R.id.ip_conexion);
+
+        ip_conexion.setText("Esta conectado a la IP: " + ipServidor);
 
 
         // Microphone button pressed/released
@@ -90,34 +95,42 @@ public class ClientActivity extends AppCompatActivity {
                     Log.i("JAIME", "==============SOLTO");
 
 
-                    myAudioRecorder.stop();
-                    myAudioRecorder.release();
-                    myAudioRecorder = null;
-                    Toast.makeText(getApplicationContext(), "Audio Recorder successfully", Toast.LENGTH_LONG).show();
-
-
-                    FileInputStream fis = null;
-                    BufferedInputStream bis = null;
-                    OutputStream os = null;
-
-                    File myFile = new File (outputFile);
-                    byte [] mybytearray  = new byte [(int)myFile.length()];
-
                     try {
-                        fis = new FileInputStream(myFile);
-                    } catch (FileNotFoundException e) {
-                        e.printStackTrace();
-                    }
 
-                    bis = new BufferedInputStream(fis);
-                    try {
-                        bis.read(mybytearray,0,mybytearray.length);
-                    } catch (IOException e) {
-                        e.printStackTrace();
-                    }
+                        myAudioRecorder.stop();
+                        myAudioRecorder.release();
+                        myAudioRecorder = null;
+                        Toast.makeText(getApplicationContext(), "Audio Recorder successfully", Toast.LENGTH_LONG).show();
 
-                    String temp= Base64.encodeToString(mybytearray, Base64.DEFAULT);
-                    sendData(temp);
+
+                        FileInputStream fis = null;
+                        BufferedInputStream bis = null;
+                        OutputStream os = null;
+
+                        File myFile = new File(outputFile);
+                        byte[] mybytearray = new byte[(int) myFile.length()];
+
+                        try {
+                            fis = new FileInputStream(myFile);
+                        } catch (FileNotFoundException e) {
+                            e.printStackTrace();
+                        }
+
+                        bis = new BufferedInputStream(fis);
+                        try {
+                            bis.read(mybytearray, 0, mybytearray.length);
+                        } catch (IOException e) {
+                            e.printStackTrace();
+                        }
+
+                        String temp = Base64.encodeToString(mybytearray, Base64.DEFAULT);
+                        sendData(temp);
+
+                        //sendData("Jaime Lombana\n");
+
+                    }catch (Exception e){
+                        Toast.makeText(getApplicationContext(), "Mantenga oprimido el botón para grabar", Toast.LENGTH_LONG).show();
+                    }
 
                 }
                 return false;
@@ -169,13 +182,13 @@ public class ClientActivity extends AppCompatActivity {
                     dataOutputStream.println(mensajeEncriptado + "\n\r");
 
 
-                    String dataSocket = new BufferedReader(dataInputStream).readLine();
-                    String mensajeDesencriptado;
-                    mensajeDesencriptado= dataSocket;
-                    Log.i(TAG,  "========================= SE RECIBE: "+ mensajeDesencriptado+"\n");
-                    if (mensajeDesencriptado != null) {
+                   // String dataSocket = new BufferedReader(dataInputStream).readLine();
+                   // String mensajeDesencriptado;
+                   // mensajeDesencriptado= dataSocket;
+                   // Log.i(TAG,  "========================= SE RECIBE: "+ mensajeDesencriptado+"\n");
+                   // if (mensajeDesencriptado != null) {
 
-                    }
+                   // }
 
                 } catch (UnknownHostException e) {
                     Log.e(TAG, "Error tipo: UnknownHostException");
