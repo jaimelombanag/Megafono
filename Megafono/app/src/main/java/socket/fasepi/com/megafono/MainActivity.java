@@ -3,6 +3,8 @@ package socket.fasepi.com.megafono;
 import android.Manifest;
 import android.content.Intent;
 import android.content.pm.PackageManager;
+import android.net.Uri;
+import android.os.Environment;
 import android.support.v4.app.ActivityCompat;
 import android.support.v4.content.ContextCompat;
 import android.support.v7.app.AppCompatActivity;
@@ -12,9 +14,12 @@ import android.view.View;
 import android.widget.EditText;
 import android.widget.Toast;
 
+import java.io.File;
+import java.io.IOException;
+
 public class MainActivity extends AppCompatActivity {
 
-
+    private String TAG = "Megafono";
     private EditText ipTexto;
 
     @Override
@@ -27,6 +32,9 @@ public class MainActivity extends AppCompatActivity {
         if (weHavePermissionToReadContacts() == false) {
             Log.i("Record", ": ---------------------ENTRA A REVISAR PERMISOS : ");
             ChequearPermiso();
+            CreaCarpeta();
+        }else{
+            CreaCarpeta();
         }
 
     }
@@ -71,6 +79,23 @@ public class MainActivity extends AppCompatActivity {
     }
 
 
+    public void CreaCarpeta(){
+
+
+        File f = new File(Environment.getExternalStorageDirectory() + "/SonidosAlarmas");
+        // Comprobamos si la carpeta está ya creada
+
+        // Si la carpeta no está creada, la creamos.
+
+        if(!f.isDirectory()) {
+            String newFolder = "/SonidosAlarmas"; //cualquierCarpeta es el nombre de la Carpeta que vamos a crear
+            String extStorageDirectory = Environment.getExternalStorageDirectory().toString();
+            File myNewFolder = new File(extStorageDirectory + newFolder);
+            myNewFolder.mkdir(); //creamos la carpeta
+        }else{
+            Log.d(TAG,"La carpeta ya estaba creada");
+        }
+    }
 
     /******************************************************************************************************************************/
     /*************************************      PARA REVISAR LOS PERMISOS      ****************************************************/

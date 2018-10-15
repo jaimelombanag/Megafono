@@ -145,6 +145,10 @@ public class ClientActivity extends AppCompatActivity {
         MediaPlayer mediaPlayer = new MediaPlayer();
 
         try {
+
+            outputFile = Environment.getExternalStorageDirectory() + "/SonidosAlarmas/falsa.mp3";
+
+
             mediaPlayer.setDataSource(outputFile);
             mediaPlayer.prepare();
             mediaPlayer.start();
